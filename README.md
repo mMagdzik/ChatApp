@@ -1,4 +1,4 @@
-<h2 align="center"> 🔧 Tech Stack: </h2>
+# Tech Stack:
 
 <div align="center">
 
