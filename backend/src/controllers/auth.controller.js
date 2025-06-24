@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
 import User from "../models/user.model";
 import bcrypt from "bcryptjs";
+import { generateToken } from "../lib/utils.js";
 
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -16,17 +16,29 @@ export const signup = async (req, res) => {
     const salt = await bcrypt.getSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const NewUser = new User({
+    const newUser = new User({
       fullName,
       email,
       password: hashedPassword,
     });
 
-    if (NewUser) {
+    if (newUser) {
+      generateToken(newUser._id, res);
+      await newUser.save();
+
+      res.status(201).json({
+        _id: newUser._id,
+        fullName: newUser.fullName,
+        email: newUser.email,
+        profilePic: newUser.profilePic,
+      });
     } else {
       res.status(400).json({ message: "Invalid user data" });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log("Error in signin controller", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
 export const login = (req, res) => {
