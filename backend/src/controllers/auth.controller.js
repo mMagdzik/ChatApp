@@ -49,7 +49,7 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
     //check if the user already rxist in the data base, if non - error
-    const user = await user.findOne({ email });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Invalid credential" });
     }
@@ -74,5 +74,12 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.send("logout route droga");
+  //just clear out the cookies
+  try {
+    res.cookie("jwt", "", { maxAge: 0 });
+    res.status(200).json({ message: "Logout succesfully" });
+  } catch {
+    console.log("Error in login controller", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
