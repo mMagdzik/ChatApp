@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import bcrypt, { hash } from "bcryptjs";
 import { generateToken } from "../lib/utils.js";
+import { protectRoute } from "../middleware/auth.middleware.js";
 
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -83,3 +84,5 @@ export const logout = (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const updateProfile = async (req, protectRoute, res) => {};
