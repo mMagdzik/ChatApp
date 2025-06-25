@@ -86,7 +86,7 @@ export const logout = (req, res) => {
   }
 };
 
-export const updateProfile = async (req, protectRoute, res) => {
+export const updateProfile = async (req, res) => {
   try {
     const { profilePic } = req.body;
     const userId = req.user._id;
@@ -104,6 +104,16 @@ export const updateProfile = async (req, protectRoute, res) => {
       { new: true }
     );
     res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log("Error in update profile", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+//refreshig
+export const checkAuth = async (req, res) => {
+  try {
+    res.status(200).json(req.user);
   } catch (error) {
     console.log("Error in update profile", error);
     res.status(500).json({ message: "Internal Server Error" });
