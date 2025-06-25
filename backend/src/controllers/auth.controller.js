@@ -1,5 +1,5 @@
 import User from "../models/user.model.js";
-import bcrypt from "bcryptjs";
+import bcrypt, { hash } from "bcryptjs";
 import { generateToken } from "../lib/utils.js";
 
 export const signup = async (req, res) => {
@@ -45,8 +45,32 @@ export const signup = async (req, res) => {
   }
 };
 
-export const login = (req, res) => {
-  res.send("login route");
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    //check if the user already rxist in the data base, if non - error
+    const user = await user.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid credential" });
+    }
+    //if yes we have to check if password is corect
+    //user.password is in the database
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ message: "Invalid credential" });
+    }
+    generateToken(user._id, res);
+
+    res.status(200).json({
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      profilePic: user.profilePic,
+    });
+  } catch (error) {
+    console.log("Error in login controller", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
 export const logout = (req, res) => {
