@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import SignUpPage from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -19,13 +19,12 @@ const App = () => {
   console.log({ authUser });
 
   //czekamy na wynik autoryzacji – nie wiemy jeszcze, czy ktoś jest zalogowany.
-  //isCheckingAuth && !authUser
-  if (true)
+  isCheckingAuth && !authUser;
+  if (isCheckingAuth && !authUser)
     return (
       <>
-        <p className="text-red-500 text-4xl">Hello Tailwind</p>
         <div className="flex items-center justify-center h-screen">
-          <Loader className="w-10 h-10 animate-spin block" />
+          <Loader className="size-10 animate-spin" />
         </div>
       </>
     );
@@ -34,7 +33,10 @@ const App = () => {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={authUser ? <HomePage /> : <Navigate to="/login" />}
+        />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/settings" element={<SettingsPage />} />
