@@ -16,3 +16,24 @@ export const getUsersForSidebar = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+//get messages between two users
+export const getMessages = async (req, res) => {
+  try {
+    const { id: userToChatId } = req.params;
+    //currently authenticated user:
+    const myId = req.user._id;
+    // finding messages:
+    const messages = await Message.find({
+      $or: [
+        { senderId: myId, recieverId: userToChatId }, // find all where sender is me or reciever is the other user
+        { senderId: userToChatId, recieverId: myId }, // vice versa
+      ],
+    });
+
+    res.status(200).json(messages);
+  } catch (error) {
+    console.error("Error in getUsersForSidebar: ", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
