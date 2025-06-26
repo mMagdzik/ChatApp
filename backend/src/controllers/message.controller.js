@@ -37,3 +37,32 @@ export const getMessages = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const sendMessages = async (req, res) => {
+  // tezt or image
+  try {
+    const { text, image } = req.body;
+    const { id: recieverId } = req.params;
+    const senderId = req.user._id; //me
+
+    let imageUrl; //at first undefined
+    if (image) {
+      const uploadResponse = await cloudinary.uploader.upload(image);
+      imageUrl = uploadResponse.secure_url;
+    }
+
+    const NewMessage = new Message({
+      senderId,
+      recieverId,
+      text,
+      image: imageUrl,
+    });
+
+    await NewMessage.save();
+
+    //to do : realTime functionality
+  } catch (error) {
+    console.error("Error in getUsersForSidebar: ", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
