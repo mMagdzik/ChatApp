@@ -19,11 +19,15 @@ const App = () => {
   console.log({ authUser });
 
   //czekamy na wynik autoryzacji – nie wiemy jeszcze, czy ktoś jest zalogowany.
+  //isCheckingAuth && !authUser
   if (true)
     return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader className="size-10 animate-spin" />
-      </div>
+      <>
+        <p className="text-red-500 text-4xl">Hello Tailwind</p>
+        <div className="flex items-center justify-center h-screen">
+          <Loader className="w-10 h-10 animate-spin block" />
+        </div>
+      </>
     );
 
   return (
