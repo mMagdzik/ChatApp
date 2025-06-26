@@ -7,6 +7,7 @@ import SettingsPage from "./pages/SettingsPage";
 import ProfilePage from "./pages/ProfilePage";
 import Navbar from "./components/Navbar";
 import { useAuthStore } from "./store/useAuthStore";
+import { Loader } from "lucide-react";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -18,7 +19,12 @@ const App = () => {
   console.log({ authUser });
 
   //czekamy na wynik autoryzacji – nie wiemy jeszcze, czy ktoś jest zalogowany.
-  if (isCheckingAuth && !authUser) return {};
+  if (true)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader className="size-10 animate-spin" />
+      </div>
+    );
 
   return (
     <>
