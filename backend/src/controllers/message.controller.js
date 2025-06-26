@@ -61,8 +61,10 @@ export const sendMessages = async (req, res) => {
     await NewMessage.save();
 
     //to do : realTime functionality
+
+    res.status(201).json(NewMessage);
   } catch (error) {
-    console.error("Error in getUsersForSidebar: ", error.message);
+    console.error("Error in sendMessage controller: ", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
