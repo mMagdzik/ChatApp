@@ -9,12 +9,16 @@ import Navbar from "./components/Navbar";
 import { useAuthStore } from "./store/useAuthStore";
 
 const App = () => {
-  const { authUser, checkAuth } = useAuthStore();
+  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
   console.log({ authUser });
+
+  //czekamy na wynik autoryzacji – nie wiemy jeszcze, czy ktoś jest zalogowany.
+  if (isCheckingAuth && !authUser) return {};
 
   return (
     <>
