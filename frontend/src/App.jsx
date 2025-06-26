@@ -1,14 +1,20 @@
-import Navbar from "./components/Navbar";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import SignUpPage from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SettingsPage from "./pages/SettingsPage";
 import ProfilePage from "./pages/ProfilePage";
+import Navbar from "./components/Navbar";
 import { useAuthStore } from "./store/useAuthStore";
 
 const App = () => {
-  const { authUser } = useAuthStore();
+  const { authUser, checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
   return (
     <>
       <Navbar />
