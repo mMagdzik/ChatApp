@@ -1,4 +1,6 @@
-<h1 align="center"> ✨ Full Stack Realtime Chat App ✨ </h1>
+<div align="center">
+# < ✨ Full Stack Realtime Chat App ✨ </h1>
+</div>
 
 - 🌟 Tech stack: MERN + Socket.io + TailwindCSS + Daisy UI
 - 🎃 Authentication && Authorization with JWT
