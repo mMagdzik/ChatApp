@@ -1,5 +1,7 @@
 <div align="center">
-# < ✨ Full Stack Realtime Chat App ✨ </h1>
+
+# ✨ Full Stack Realtime Chat App ✨
+
 </div>
 
 - 🌟 Tech stack: MERN + Socket.io + TailwindCSS + Daisy UI
