@@ -24,8 +24,6 @@
 
 ## 🔧 Backend
 
-## Tech Stack
-
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/590px-Node.js_logo.svg.png" alt="Node.js" width="80"/> &nbsp;&nbsp;
 
 ![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)&nbsp;&nbsp;

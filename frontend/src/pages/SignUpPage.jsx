@@ -31,10 +31,14 @@ const SignUpPage = () => {
     if (!formData.password) return toast.error("Password is required");
     if (formData.password.length < 6)
       return toast.error("Password mst be at least 6 charakters");
+
+    return true;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const success = validateForm();
+    if (success === true) signup(formData);
   };
 
   return (
